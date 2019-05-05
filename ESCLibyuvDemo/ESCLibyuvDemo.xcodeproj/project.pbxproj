@@ -14,6 +14,8 @@
 		F0DB5DAF227E7A74004A45A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0DB5DAD227E7A74004A45A4 /* LaunchScreen.storyboard */; };
 		F0DB5DB2227E7A74004A45A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DB5DB1227E7A74004A45A4 /* main.m */; };
 		F0DB5DD1227E7A96004A45A4 /* libyuv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DB5DB9227E7A96004A45A4 /* libyuv.a */; };
+		F0DB5DD3227E7D3C004A45A4 /* yuv_1920_1080 in Resources */ = {isa = PBXBuildFile; fileRef = F0DB5DD2227E7D3C004A45A4 /* yuv_1920_1080 */; };
+		F0DB5DD6227E81F3004A45A4 /* ESCUIImageToDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DB5DD5227E81F3004A45A4 /* ESCUIImageToDataTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,9 @@
 		F0DB5DCE227E7A96004A45A4 /* rotate_argb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rotate_argb.h; sourceTree = "<group>"; };
 		F0DB5DCF227E7A96004A45A4 /* macros_msa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros_msa.h; sourceTree = "<group>"; };
 		F0DB5DD0227E7A96004A45A4 /* row.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = row.h; sourceTree = "<group>"; };
+		F0DB5DD2227E7D3C004A45A4 /* yuv_1920_1080 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yuv_1920_1080; sourceTree = "<group>"; };
+		F0DB5DD4227E81F3004A45A4 /* ESCUIImageToDataTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESCUIImageToDataTool.h; sourceTree = "<group>"; };
+		F0DB5DD5227E81F3004A45A4 /* ESCUIImageToDataTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESCUIImageToDataTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,9 @@
 				F0DB5DA5227E7A71004A45A4 /* ViewController.h */,
 				F0DB5DA6227E7A71004A45A4 /* ViewController.m */,
 				F0DB5DA8227E7A71004A45A4 /* Main.storyboard */,
+				F0DB5DD4227E81F3004A45A4 /* ESCUIImageToDataTool.h */,
+				F0DB5DD5227E81F3004A45A4 /* ESCUIImageToDataTool.m */,
+				F0DB5DD2227E7D3C004A45A4 /* yuv_1920_1080 */,
 				F0DB5DAB227E7A74004A45A4 /* Assets.xcassets */,
 				F0DB5DAD227E7A74004A45A4 /* LaunchScreen.storyboard */,
 				F0DB5DB0227E7A74004A45A4 /* Info.plist */,
@@ -198,6 +206,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DB5DD3227E7D3C004A45A4 /* yuv_1920_1080 in Resources */,
 				F0DB5DAF227E7A74004A45A4 /* LaunchScreen.storyboard in Resources */,
 				F0DB5DAC227E7A74004A45A4 /* Assets.xcassets in Resources */,
 				F0DB5DAA227E7A71004A45A4 /* Main.storyboard in Resources */,
@@ -211,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0DB5DD6227E81F3004A45A4 /* ESCUIImageToDataTool.m in Sources */,
 				F0DB5DA7227E7A71004A45A4 /* ViewController.m in Sources */,
 				F0DB5DB2227E7A74004A45A4 /* main.m in Sources */,
 				F0DB5DA4227E7A71004A45A4 /* AppDelegate.m in Sources */,
