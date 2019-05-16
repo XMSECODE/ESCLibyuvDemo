@@ -68,6 +68,11 @@
     
     vImage_YpCbCrToARGB infoyuvoargb;
     
+//    argbBuff.width = width;
+//    argbBuff.height = height;
+//    argbBuff.data = malloc(width * height * 4);
+//    argbBuff.rowBytes = width * 4;
+    
     vImage_Error init = vImageBuffer_Init(&argbBuff, height, width, 32, kvImageNoFlags);
     
     if (init != 0) {
@@ -123,6 +128,7 @@
     vImageConverterRef converter = vImageConverter_CreateForCVToCGImageFormat(srcFormat, &destformat, backgroundColor, kvImageNoFlags, &err);
     if (err != 0) {
         NSLog(@"创建转换器失败");
+        vImageCVImageFormat_Release(srcFormat);
         return NO;
     }
     
@@ -151,6 +157,7 @@
     
     if (init != 0) {
         NSLog(@"失败");
+        vImageCVImageFormat_Release(srcFormat);
         return NO;
     }
     vImage_Error result = vImageConvert_AnyToAny(converter, srcsBuffs, &argb_buffer, NULL, kvImageNoFlags);
@@ -158,6 +165,7 @@
     
     if (result != 0) {
         NSLog(@"转换失败");
+        vImageCVImageFormat_Release(srcFormat);
         return NO;
     }
     *argbData = argb_buffer.data;
