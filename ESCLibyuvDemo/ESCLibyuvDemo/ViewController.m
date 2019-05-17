@@ -19,12 +19,17 @@
 
 @property(nonatomic,strong)NSData* yuvData;
 
+@property(nonatomic,strong)dispatch_queue_t testQueue;
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.testQueue = dispatch_queue_create("test", NULL);
+
     
     NSMutableArray *temArray = [NSMutableArray array];
     for (int i = 0; i < 6; i++) {
@@ -53,7 +58,12 @@
             [self testAccelerateFrameFunc3];
             
             [self testAccelerateFrameFunc4];
-            
+            for (int i = 0; i < 10000; i++) {
+                dispatch_async(self.testQueue, ^{
+                    [self testAccelerateFrameFunc1];
+
+                });
+            }
         });
     });
     
@@ -142,13 +152,13 @@
         return;
     }
     
-    UIImage *image = [ESCUIImageToDataTool getImageFromRGBAData:argbData width:width height:height];
+//    UIImage *image = [ESCUIImageToDataTool getImageFromRGBAData:argbData width:width height:height];
     free(argbData);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIImageView *imageView = [self.imageViewArray objectAtIndex:2];
-        imageView.frame = CGRectMake(0,310,180 ,250);
-        imageView.image = image;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        UIImageView *imageView = [self.imageViewArray objectAtIndex:2];
+//        imageView.frame = CGRectMake(0,310,180 ,250);
+//        imageView.image = image;
+//    });
     
 }
 
