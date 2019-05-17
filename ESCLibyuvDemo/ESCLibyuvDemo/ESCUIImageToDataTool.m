@@ -123,6 +123,7 @@
     vImageConverterRef converter = vImageConverter_CreateForCVToCGImageFormat(srcFormat, &destformat, backgroundColor, kvImageNoFlags, &err);
     if (err != 0) {
         NSLog(@"创建转换器失败");
+        vImageCVImageFormat_Release(srcFormat);
         return NO;
     }
     
@@ -151,6 +152,8 @@
     
     if (init != 0) {
         NSLog(@"失败");
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     vImage_Error result = vImageConvert_AnyToAny(converter, srcsBuffs, &argb_buffer, NULL, kvImageNoFlags);
@@ -158,10 +161,13 @@
     
     if (result != 0) {
         NSLog(@"转换失败");
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     *argbData = argb_buffer.data;
-
+    vImageCVImageFormat_Release(srcFormat);
+    vImageConverter_Release(converter);
     return YES;
 }
 
@@ -252,6 +258,7 @@
     vImageConverterRef converter = vImageConverter_CreateForCGToCVImageFormat(&destformat, srcFormat, backgroundColor, kvImageNoFlags, &err);
     if (err != 0) {
         NSLog(@"创建转换器失败");
+        vImageCVImageFormat_Release(srcFormat);
         return NO;
     }
     
@@ -265,6 +272,8 @@
     vImage_Error init = vImageBuffer_Init(&buff_y, height, width, 8, kvImageNoFlags);
     if (init != 0) {
         NSLog(@"vImageBuffer_Init失败");
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     
@@ -272,6 +281,8 @@
     init = vImageBuffer_Init(&buff_u, height, width, 8, kvImageNoFlags);
     if (init != 0) {
         NSLog(@"vImageBuffer_Init失败");
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     
@@ -279,24 +290,26 @@
     init = vImageBuffer_Init(&buff_v, height, width, 8, kvImageNoFlags);
     if (init != 0) {
         NSLog(@"vImageBuffer_Init失败");
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     
     vImage_Buffer yuvbuffer[] = {buff_y,buff_v,buff_u};
     
-    
-    if (init != 0) {
-        NSLog(@"失败");
-        return NO;
-    }
+
     vImage_Error result = vImageConvert_AnyToAny(converter, &argbBuff, yuvbuffer, NULL, kvImageNoFlags);
     
     
     if (result != 0) {
         NSLog(@"转换失败==%zd",result);
+        vImageCVImageFormat_Release(srcFormat);
+        vImageConverter_Release(converter);
         return NO;
     }
     
+    vImageCVImageFormat_Release(srcFormat);
+    vImageConverter_Release(converter);
     *ydata = buff_y.data;
     *udata = buff_u.data;
     *vdata = buff_v.data;
