@@ -51,27 +51,91 @@
             
             [self testLibyuvYUVToARGB];
             
+//            [self testcolor];
+            
             [self testAccelerateFrameFunc1];
             
             [self testAccelerateFrameFunc2];
             
             [self testAccelerateFrameFunc3];
             
-            [self testAccelerateFrameFunc4];
-            for (int i = 0; i < 10000; i++) {
-                dispatch_async(self.testQueue, ^{
-                    [self testAccelerateFrameFunc1];
-
-                });
-            }
+//            [self testAccelerateFrameFunc4];
+//            for (int i = 0; i < 10000; i++) {
+//                dispatch_async(self.testQueue, ^{
+//                    [self testAccelerateFrameFunc1];
+//
+//                });
+//            }
         });
     });
     
 }
 
+- (void)testcolor {
+    int rgbaDataLength = 0;
+    UIImage *image = [UIImage imageNamed:@"red"];
+  
+    {
+        UIGraphicsBeginImageContext(CGSizeMake(720, 1080));
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        //        [[UIColor redColor] setFill];
+        CGContextSetFillColorWithColor(context, [[UIColor redColor] CGColor]);
+        CGContextFillRect(context, CGRectMake(0, 0, 720, 1080));
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        NSLog(@"%@",image);
+    }
+    
+    
+    
+    
+    int width = image.size.width;
+    int height = image.size.height;
+    uint8_t *rgbaData = malloc(width * height * 4);
+    
+    [ESCUIImageToDataTool getImageRGBADataWithImage:image rgbaData:rgbaData length:&rgbaDataLength];
+    
+    uint8_t *yData = malloc(width * height);
+    uint8_t *uData = malloc(width * height / 4);
+    uint8_t *vData = malloc(width * height / 4);
+    
+    //转yuv
+//    RGBAToI420(rgbaData, width * 4, yData, width, uData, width / 2, vData, width / 2, width, height);
+//    uint8_t *argb = malloc(width * height * 4);
+//    RGBAToARGB(rgbaData, width * 4, argb, width * 4, width, height);
+    [ESCUIImageToDataTool argbDataConverteYUVDataWithARGBData:rgbaData ydata:&yData udata:&uData vdata:&vData width:width height:height];
+//    for (int i = 0; i < 1; i++) {
+//        printf("\n==B==%d==G=%d==R==%d===%d",rgbaData[i * 4 + 1],rgbaData[i * 4 + 2],rgbaData[i * 4 + 3],rgbaData[i * 4 + 0]);
+//    }
+
+//    for (int i = 0; i < height*width; i++) {
+////        printf("\n=y==%d===u===%d===v===%d",yData[i],uData[i],vData[i]);
+//        printf("%d==%d==\n",yData[i],i / width);
+//    }
+
+    uint8_t *newrgbaData = malloc(width * height * 4);
+    //转argb
+//    I420ToRGBA(yData, width, uData, width / 2, vData, width / 2, newrgbaData, 4 * width, width, height);
+//    printf("\n==R==%d==G=%d==B==%d===%d\n",newrgbaData[1],newrgbaData[2],newrgbaData[3],newrgbaData[0]);
+    [ESCUIImageToDataTool yuvDataConverteARGBDataWithYdata:yData udata:uData vdata:vData argbData:&newrgbaData width:width height:height];
+//    printf("\n==R==%d==G=%d==B==%d===%d",newrgbaData[1],newrgbaData[2],newrgbaData[3],newrgbaData[0]);
+
+    
+    UIImage *newImage = [ESCUIImageToDataTool getImageFromRGBAData:newrgbaData width:width height:height];
+    
+    free(rgbaData);
+    //加载出来
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImageView *imageView = [self.imageViewArray objectAtIndex:1];
+        imageView.frame = CGRectMake(200,50,180 ,250);
+        imageView.image = newImage;
+    });
+}
+
 - (void)testImageData {
     int rgbaDataLength = 0;
     UIImage *image = [UIImage imageNamed:@"IMG_4370"];
+    
     int width = image.size.width;
     int height = image.size.height;
     uint8_t *rgbaData = malloc(width * height * 4);

@@ -92,7 +92,7 @@
     
     vImageConvert_YpCbCrToARGB_GenerateConversion(kvImage_YpCbCrToARGBMatrix_ITU_R_601_4, &range, &infoyuvoargb, kvImage420Yp8_Cb8_Cr8, kvImageARGB8888, kvImageNoFlags);
     
-    vImage_Error result = vImageConvert_420Yp8_Cb8_Cr8ToARGB8888(&srcsBuff_y, &srcsBuff_v, &srcsBuff_u, &argbBuff, &infoyuvoargb, NULL, 255, kvImagePrintDiagnosticsToConsole);
+    vImage_Error result = vImageConvert_420Yp8_Cb8_Cr8ToARGB8888(&srcsBuff_y, &srcsBuff_v, &srcsBuff_u, &argbBuff, &infoyuvoargb, NULL, 255, kvImageNoFlags);
     if (result != 0) {
         NSLog(@"vImageConvert_420Yp8_Cb8_Cr8ToARGB8888 转换失败");
         return NO;
@@ -222,9 +222,9 @@
     range.CbCrMax = 240;
     range.CbCrMin = 16;
     
-    vImageConvert_ARGBToYpCbCr_GenerateConversion(kvImage_ARGBToYpCbCrMatrix_ITU_R_601_4, &range, &infoargbtoyuv, kvImageARGB8888, kvImage420Yp8_Cb8_Cr8, kvImagePrintDiagnosticsToConsole);
+    vImageConvert_ARGBToYpCbCr_GenerateConversion(kvImage_ARGBToYpCbCrMatrix_ITU_R_601_4, &range, &infoargbtoyuv, kvImageARGB8888, kvImage420Yp8_Cb8_Cr8, kvImageNoFlags);
         
-     vImage_Error result = vImageConvert_ARGB8888To420Yp8_Cb8_Cr8(&argbBuff, &buff_y, &buff_u, &buff_v, &infoargbtoyuv, NULL, kvImagePrintDiagnosticsToConsole);
+     vImage_Error result = vImageConvert_ARGB8888To420Yp8_Cb8_Cr8(&argbBuff, &buff_y, &buff_u, &buff_v, &infoargbtoyuv, NULL, kvImageNoFlags);
     
     if (result != 0) {
         NSLog(@"vImageConvert_ARGB8888To420Yp8_Cb8_Cr8 转换失败");
